@@ -30,8 +30,14 @@ async function handleGetAnalytics(req, res) {
 
     });
 }
+async function handleGetAll(req, res) {
+    const entry = await URL.find();
+    const entries = await entry;
+    res.json({ entries });
+}
 
 module.exports = {
     handleGenerateShortURL,
-    handleGetAnalytics
+    handleGetAnalytics,
+    handleGetAll
 };
