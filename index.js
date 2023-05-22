@@ -1,17 +1,19 @@
 const express = require("express");
+const cors = require("cors")
 const urlRoute = require("./routes/routes_url");
 const URL = require("./model/model_url");
 const connectToMongoDB = require("./connect")
 
 
 const app = express(); // initiating express app 
-const PORT = 8000;
+const PORT = 8000 || process.env.PORT;
 
 connectToMongoDB("mongodb+srv://dbUser:Zq4UcF8pwSq1tQiw@cluster0.h3ajy.mongodb.net/micro-url").then(() => {
     console.log("MongoDB Connected")
 });
 
 app.use(express.json());
+app.use(cors())
 app.use("/url", urlRoute);
 
 app.get("/analytic/:shortId", async (req, res) => {
