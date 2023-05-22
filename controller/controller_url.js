@@ -21,23 +21,19 @@ async function handleGenerateShortURL(req, res) {
 
 
 
-async function handleGetAnalytics(req, res) {
-    const shortId = req.params.shortId;
-    const result = await URL.findOne({ shortId });
-    return res.json({
-        totalClicks: result.visitHistory.length,
-        analytics: result.visitHistory,
+// async function handleGetAnalytics(req, res) {
+//     const shortId = req.params.shortId;
+//     const result = await URL.findOne({ shortId });
+//     return res.json({
+//         totalClicks: result.visitHistory.length,
+//         analytics: result.visitHistory,
 
-    });
-}
-async function handleGetAll(req, res) {
-    const entry = await URL.find();
-    const entries = await entry;
-    res.json({ entries });
-}
+//     });
+// }
+
 
 module.exports = {
     handleGenerateShortURL,
-    handleGetAnalytics,
-    handleGetAll
+    // handleGetAnalytics,
+
 };
