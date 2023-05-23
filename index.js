@@ -8,7 +8,7 @@ const connectToMongoDB = require("./connect")
 const app = express(); // initiating express app 
 const PORT = 8000 || process.env.PORT;
 
-connectToMongoDB(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.h3ajy.mongodb.net/micro-url`).then(() => {
+connectToMongoDB("mongodb+srv://dbUser:Zq4UcF8pwSq1tQiw@cluster0.h3ajy.mongodb.net/micro-url").then(() => {
     console.log("MongoDB Connected")
 });
 
