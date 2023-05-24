@@ -1,9 +1,9 @@
-
 const URL = require("../model/model_url");
 const shortid = require('shortid');
 
 
 
+/////Getting URL and generate Short URL////////// 
 
 async function handleGenerateShortURL(req, res) {
     const body = req.body;
@@ -19,21 +19,73 @@ async function handleGenerateShortURL(req, res) {
     return res.json({ id: shortId });
 }
 
+/////////////////////////////////////////////////////
 
 
-// async function handleGetAnalytics(req, res) {
-//     const shortId = req.params.shortId;
-//     const result = await URL.findOne({ shortId });
-//     return res.json({
-//         totalClicks: result.visitHistory.length,
-//         analytics: result.visitHistory,
 
-//     });
-// }
+
+
+////Getting All Stored Data With analytics////////////
+
+async function handleAllData(req, res) {
+    const entry = await URL.find();
+    res.json({ entry });
+    console.log("data found")
+}
+
+////////////////////////////////////////////////////
+
+
+
+
+
+
+////Getting Specific Data With analytics////////////
+
+async function handleSingleData(req, res) {
+    const shortId = req.params.shortId;
+    const entry = await URL.findOne({ shortId });
+
+    res.json({ entry });
+    console.log("data found")
+}
+/////////////////////////////////////////////
+
+
+
+
+
+
+///////////////Rerouting URL ////////////
+
+async function handleReRouteUrl(req, res) {
+    const shortId = req.params.shortId;
+    const entry = await URL.findOneAndUpdate(
+        {
+            shortId,
+        },
+        {
+            $push: {
+                visitHistory: {
+                    timestamp: Date.now(),
+                },
+            },
+        }
+    );
+    res.redirect(entry.redirectURL);
+}
+
+///////////////////////////////////////////////
+
+
+
+
 
 
 module.exports = {
     handleGenerateShortURL,
-    // handleGetAnalytics,
+    handleAllData,
+    handleReRouteUrl,
+    handleSingleData
 
 };
